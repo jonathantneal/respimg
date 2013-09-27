@@ -12,16 +12,26 @@
 
 	// match expressions
 	var match = {
+		// attribute name is at least 4 characters long
+		// first three characters of the attribute name are an ASCII case-insensitive match for "src"
+		// fourth character of the attribute name is a non-zero digit (1-9)
+		// remaining characters of the attribute name are digits (0-9)
 		attribute: /^src[1-9][0-9]*$/i,
+		// media queries are wrapped in parentheses
+		// media queres may be separated by "and"
 		mediaQuery: /^(?:\([^\)]*\)\s*(?:and)?\s*)+/,
+		// 
 		sizeViewportList: /^[^;]*;\s*/
 	};
 
-	function parseSrcN(element) {
+	// Get Image Candidates
+	function getImageCandidates(element) {
 		var
 		attributes = element.attributes,
 		srcN = [],
 		index, length;
+
+		console.log( '' );
 
 		// push all matching srcN attributes into a srcN array
 		for (index = 0, length = attributes.length; index < length; ++index) {
@@ -42,14 +52,19 @@
 
 		// parse each srcN object
 		for (index = 0, length = srcN.length; index < length; ++index) {
+			console.log( 'src' + index + ':' );
+
 			matchMediaQuery = srcN[index].value.match(match.mediaQuery);
-			matchXBasedUrls = false; // (INCOMPLETE)
-			matchViewportList = srcN[index].value.match(match.sizeViewportList);
 
 			// matches `<media-query>`
 			if (matchMediaQuery) {
-				console.log( 'matched media query', [matchMediaQuery[0]]);
+				console.log( '<media-query>', [matchMediaQuery[0]]);
+
+				srcN[index].value = srcN[index].value.slice(matchMediaQuery[0].length);
 			}
+
+			matchXBasedUrls = false; // (INCOMPLETE)
+			matchViewportList = srcN[index].value.match(match.sizeViewportList);
 
 			// matches `<x-based-urls>` (INCOMPLETE)
 			if (matchXBasedUrls) {
@@ -58,9 +73,16 @@
 			// or matches `<viewport-urls>`
 			else if (matchViewportList) {
 				console.log( '<viewport-urls>', matchViewportList[0].replace(/;\s*$/, '').split(/\s+/) );
+
+				srcN[index].value = srcN[index].value.slice(matchViewportList[0].length);
 			}
+
+			console.log( 'remainder', srcN[index].value );
 		}
+
+		// return a (possibly empty) list of image candidates, where each candidate is a pair composed of a url and a resolution. (INCOMPLETE)
+		return false;
 	}
 
-	global.parseSrcN = parseSrcN;
+	global.getImageCandidates = getImageCandidates;
 })(this);

@@ -19,6 +19,12 @@ This prollyfill attempts to mimic that functionality. It is in the earliest stag
 
 [Proposal for RespImg Syntax](http://tabatkins.github.io/specs/respimg/Overview.html)
 
+## Status of the Prollyfill
+
+Successfully parsing MQ4 media queries, which are grouped queries inside parenthesis `()`, separated by `and`. They do not account for `screen`, `print`, etc. which may be removed in MQ4.
+
+Successfully parsing viewport urls.
+
 ---
 
 All of these contributions to the **Proposal for Responsive Images** are dedicated to the [public domain with no copyright](//creativecommons.org/publicdomain/zero/1.0/).
