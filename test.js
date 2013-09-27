@@ -31,7 +31,7 @@
 		srcN = [],
 		index, length;
 
-		console.log( '' );
+		console.log( '\n=======\nparsing `' + element.outerHTML + '`' );
 
 		// push all matching srcN attributes into a srcN array
 		for (index = 0, length = attributes.length; index < length; ++index) {
