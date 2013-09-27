@@ -77,7 +77,7 @@
 				srcN[index].value = srcN[index].value.slice(matchViewportList[0].length);
 			}
 
-			console.log( 'remainder', srcN[index].value );
+			console.log( 'remainder:', [srcN[index].value] );
 		}
 
 		// return a (possibly empty) list of image candidates, where each candidate is a pair composed of a url and a resolution. (INCOMPLETE)
